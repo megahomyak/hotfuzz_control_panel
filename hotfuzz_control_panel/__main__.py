@@ -31,4 +31,11 @@ hotfuzz = HotFuzz(names, initially_invisible=False)
 result = hotfuzz.run()
 if result is not None:
     commands_list = commands_list[names[result]]
-    process = subprocess.Popen(os.linesep.join(commands_list), shell=True)
+    process = subprocess.Popen(
+        os.linesep.join(commands_list),
+        shell=True,
+        close_fds=False,
+        start_new_session=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
