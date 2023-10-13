@@ -12,9 +12,6 @@ with open(config_path, encoding="utf-8") as f:
 class UnexpectedIndentation(Exception):
     pass
 
-class ReturnCodeOfCommandIsNotNull(Exception):
-    pass
-
 commands = {}
 last_group = None
 for line in config.splitlines():
@@ -33,7 +30,5 @@ hotfuzz = HotFuzz(names, initially_invisible=False)
 result = hotfuzz.run()
 if result is not None:
     commands_list = commands[names[result]]
-    for command in commands_list:
-        print(command)
-        if os.system(command) != 0:
-            raise ReturnCodeOfCommandIsNotNull()
+    commands_string = os.linesep.join(commands_list)
+    os.system(commands_string)
