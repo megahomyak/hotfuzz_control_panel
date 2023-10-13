@@ -1,6 +1,6 @@
 # HotFuzz Control Panel
 
-HotFuzz Control Panel is a utility that you can use to call shell scripts from HotFuzz.
+HotFuzz Control Panel is a shell script calling utility based on [HotFuzz](https://github.com/megahomyak/hotfuzz).
 
 ## Installation
 
@@ -8,4 +8,34 @@ HotFuzz Control Panel is a utility that you can use to call shell scripts from H
 
 ## Configuration
 
-Use your system's configurations directory, there create a directory called `hotfuzz_control_panel`
+Use your system's configurations directory, there create a directory called `hotfuzz_control_panel`, and there create a file called `commands` (simply `commands`, no extension). If you're still unsure as to where to put the file, just run `python -m hotfuzz_control_panel` and look at the error message.
+
+The `commands` file should look like that:
+
+```
+Command Name
+    first line of script
+    second line of script
+    third line of script
+    ...
+
+    empty lines are also allowed, by the way (one of them is above this line)
+
+Another Command Name
+    first line
+    second line
+    ...
+
+Yet Another Command
+    something
+```
+
+...you get the idea.
+
+## Running
+
+* Execute `python -m hotfuzz_control_panel`
+
+If you see a `UnexpectedIndentation` exception, it means that there is a line somewhere at the beginning of your `commands` file that is indented while no command names (unindentnded lines).
+
+If you see a `HotCollision` exception, it means that at least one command from the ones you've provided has a sequence of big letters that starts with the full sequence of some other command. This will make the command with the longer sequence uncallable in the "Hot" mode, and thus it's prohibited.
