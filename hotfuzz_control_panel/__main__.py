@@ -5,7 +5,7 @@ from pathlib import Path
 import re
 import subprocess
 
-config_path = Path(user_config_dir(appname="hotfuzz")) / "commands"
+config_path = Path(user_config_dir(appname="hotfuzz_control_panel")) / "commands"
 
 with open(config_path, encoding="utf-8") as f:
     config = f.read()
