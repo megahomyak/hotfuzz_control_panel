@@ -13,9 +13,6 @@ with open(config_path, encoding="utf-8") as f:
 class UnexpectedIndentation(Exception):
     pass
 
-class ReturnCodeOfCommandIsNotNull(Exception):
-    pass
-
 commands_list = {}
 last_group = None
 for line in config.splitlines():
