@@ -14,20 +14,18 @@ The `commands` file should look like that:
 
 ```
 Command Name
-    first line of script
-    second line of script
-    third line of script
-    ...
-
-    empty lines are also allowed, by the way (one of them is above this line)
+>first line of script
+>second line of script
+>third line of script
+>...
 
 Another Command Name
-    first line
-    second line
-    ...
+>first line
+>second line
+>...
 
 Yet Another Command
-    something
+>something
 ```
 
 ...you get the idea.
@@ -36,6 +34,6 @@ Yet Another Command
 
 * Execute `python -m hotfuzz_control_panel`
 
-If you see a `UnexpectedIndentation` exception, it means that there is a line somewhere at the beginning of your `commands` file that is indented while no command names (unindentnded lines).
+If you see a `UnexpectedIndentation` exception, it means that there is a line somewhere at the beginning of your `commands` file that is indented (with `>`) without any command names preceding it.
 
 If you see a `HotCollision` exception, it means that at least one command from the ones you've provided has a sequence of big letters that starts with the full sequence of some other command. This will make the command with the longer sequence uncallable in the "Hot" mode, and thus it's prohibited.
