@@ -2,7 +2,6 @@ import os
 from hotfuzz import HotFuzz
 from appdirs import user_config_dir
 from pathlib import Path
-import re
 
 config_path = Path(user_config_dir(appname="hotfuzz_control_panel", appauthor=False)) / "commands"
 
@@ -15,13 +14,17 @@ class UnexpectedIndentation(Exception):
 commands = {}
 last_group = None
 for line in config.splitlines():
-    if line.strip() == "":
+    if line.lstrip() == "":
         continue
-    if re.match(r"\s", line):
-        if last_group is None:
+    if line.startswith(">"):
+        # This is a line from a group
+        line = line[1:] # Trimming the ">"
+        try:
+            commands[last_group].append(line)
+        except KeyError:
             raise UnexpectedIndentation()
-        commands[last_group].append(line.lstrip())
     else:
+        # This is a group name
         last_group = line
         commands[line] = []
 
